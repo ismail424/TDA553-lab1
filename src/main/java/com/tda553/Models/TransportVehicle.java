@@ -97,8 +97,8 @@ public abstract class TransportVehicle extends Vehicle
         {
             throw new IllegalStateException("Cannot start engine while platform is raised!");
         };
-        setPlatformActive(false);
-        setCurrentSpeed(1);
+        setPlatformActive(false);   
+        setEningeRunning(true);
     }
 
     @Override

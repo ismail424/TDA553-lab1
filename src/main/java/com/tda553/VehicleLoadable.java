@@ -3,7 +3,6 @@ package com.tda553;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tda553.Models.Position;
 import com.tda553.Models.Vehicle;
 
 public class VehicleLoadable

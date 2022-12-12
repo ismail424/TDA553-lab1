@@ -18,6 +18,6 @@ public class GenericCarWithTrim extends Vehicle
 
     public double speedFactor()
     {
-        return getEnginePower() * 0.01 * trimFactor;
+        return getEnginePower() * 0.01 * trimFactor * getEnginePower();
     }
 }

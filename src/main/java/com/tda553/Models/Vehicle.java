@@ -12,6 +12,7 @@ public abstract class Vehicle extends Entity implements IVehicle, ITransportable
     private boolean beingTransported = false;
     private Color color; // Color of the vehicle
     private String modelName; // The vehicle model name
+    private boolean isEngineRunning = false;
 
     private final int[][] directionTable =
     {
@@ -97,30 +98,36 @@ public abstract class Vehicle extends Entity implements IVehicle, ITransportable
     }
 
     public boolean checkEngineRunning()  throws IllegalStateException
-    {
-        if (currentSpeed == 0)
+    {  
+        if (!isEngineRunning)
         {
             throw new IllegalStateException("Engine is not running");
         }
-        return true;
+        return isEngineRunning;
     }
+
 
     public void setColor(Color clr)
     {
         color = clr;
     }
     
+    public void setEningeRunning(boolean running)
+    {
+        isEngineRunning = running;
+    }
+
     /*
      * Start the engine
      * Throws an IllegalStateException if the engine is already running
      */
     public void startEngine() throws IllegalStateException
     {
-        if (currentSpeed > 0)
+        if (isEngineRunning)
         {
             throw new IllegalStateException("Engine is already running");
         }
-        currentSpeed = 0.1;
+        this.isEngineRunning = true;
     }
     /*
      * Stop the engine
@@ -132,7 +139,18 @@ public abstract class Vehicle extends Entity implements IVehicle, ITransportable
         {
             throw new IllegalStateException("Cannot stop engine while moving");
         }
-        currentSpeed = 0;
+
+        this.isEngineRunning = false;
+    }
+
+    private void incrementSpeed(double amount) {
+        double newSpeed = getCurrentSpeed() + speedFactor() * amount;
+        setCurrentSpeed( newSpeed );
+
+    }
+    private void decrementSpeed(double amount) {
+        double newSpeed = getCurrentSpeed() * (1 - amount);
+        setCurrentSpeed(newSpeed);
     }
 
     /*
@@ -144,7 +162,7 @@ public abstract class Vehicle extends Entity implements IVehicle, ITransportable
     {
         checkAmount(amount);
         checkEngineRunning();
-        setCurrentSpeed(checkNewSpeed(getCurrentSpeed() + speedFactor() * amount, true));
+        incrementSpeed(amount);
     }
     
     /*
@@ -155,7 +173,7 @@ public abstract class Vehicle extends Entity implements IVehicle, ITransportable
     public void brake(double amount) throws IllegalArgumentException
     {
         checkAmount(amount);
-        setCurrentSpeed(getCurrentSpeed() * (1 - amount));
+        decrementSpeed(amount);
     }
 
     private void checkAmount(double amount) throws IllegalArgumentException
@@ -171,8 +189,20 @@ public abstract class Vehicle extends Entity implements IVehicle, ITransportable
     */
     public void move()
     {
-        setPosition((int)Math.round(getPosition()[0] + directionTable[direction][0] * currentSpeed), (int)Math.round(getPosition()[1] + directionTable[direction][1] * currentSpeed));
+        int[] direction = directionTable[getDirection()];
+        int x = getX() + (int) (direction[0] * getCurrentSpeed());
+        int y = getY() + (int) (direction[1] * getCurrentSpeed());
+        setPosition(x, y);
     }
+
+    public void move( double factor )
+    {
+        int[] direction = directionTable[getDirection()];
+        int x = getX() + (int) (direction[0] * getCurrentSpeed() * factor);
+        int y = getY() + (int) (direction[1] * getCurrentSpeed() * factor);
+        setPosition(x, y);
+    }
+
 
     public void turnLeft()
     {
@@ -191,17 +221,5 @@ public abstract class Vehicle extends Entity implements IVehicle, ITransportable
 
     public abstract double speedFactor();
 
-    private double checkNewSpeed(double newSpeed, boolean isAccelerating)
-    {
-        if (newSpeed < 0 || newSpeed > enginePower)
-        {
-            return currentSpeed;
-        }
-        if (isAccelerating && newSpeed < currentSpeed || !isAccelerating && newSpeed > currentSpeed)
-        {
-            return currentSpeed;
-        }
-        return newSpeed;
-    }
 
 }

@@ -23,7 +23,7 @@ public class CarTest
         cars.add(new Saab95());
     }
 
-    @Test
+    @Test( expected = AssertionError.class)
     public void MoveCars()
     {
         int[] start_position = {0, 0};
@@ -34,9 +34,9 @@ public class CarTest
             assertArrayEquals(start_position, car.getPosition());
 
             car.startEngine();
+
             car.gas(1);
             car.move();
-
             // Has the car moved?
             assertArrayEquals(car.getPosition(), new int[] {1, 0});
 

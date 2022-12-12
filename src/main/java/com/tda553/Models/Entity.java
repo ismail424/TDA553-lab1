@@ -13,4 +13,14 @@ public abstract class Entity
     {
         pos.setPosition(x, y);
     }
+
+    public int getX()
+    {
+        return pos.getX();
+    }
+
+    public int getY()
+    {
+        return pos.getY();
+    }
 }

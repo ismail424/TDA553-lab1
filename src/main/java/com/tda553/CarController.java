@@ -37,7 +37,9 @@ public class CarController {
         // Instance of this class
         CarController cc = new CarController();
 
-        cc.cars.add(new Volvo240());
+        Volvo240 volvo = new Volvo240();
+        volvo.setPosition(0, 0);
+        cc.cars.add(volvo);
 
         // Add a saab
         Saab95 saab = new Saab95();
@@ -46,12 +48,17 @@ public class CarController {
 
         // Add scania
         Scania scania = new Scania();
-        scania.setPosition(0, 300);
+        scania.setPosition(0, 200);
         cc.cars.add(scania);
 
+        
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
-
+        
+        // Add all vehicles to the panel so that it can draw them
+        for (Vehicle car : cc.cars) {
+            cc.frame.drawPanel.addVehicleImag(car);
+        }
         // Start the timer
         cc.timer.start();
     }
@@ -61,13 +68,10 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            frame.drawPanel.update();
-            for (Vehicle car : cars) 
-            {
-                car.move();
-                int x = (int)Math.round(car.getPosition()[0]);
-                int y = (int)Math.round(car.getPosition()[1]);
-                frame.drawPanel.moveit(x, y);
+            for (Vehicle car : cars) {
+                car.move(0.1);
+                // Priont speed
+                frame.drawPanel.moveit((int) car.getX(), (int) car.getY(), car);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
@@ -75,19 +79,22 @@ public class CarController {
     }
 
     // Calls the gas method for each car once
-    void gas(int amount) {
-        double gas = ((double) amount) / 100;
-        for (Vehicle car : cars
-                ) {
-            car.gas(gas);
+    void gas(double amount) {
+        for (Vehicle car : cars) {
+            car.gas(amount);
         }
     }
 
-    void brake(int amount) {
-        double brake = ((double) amount) / 100;
-        for (Vehicle car : cars
-                ) {
-            car.brake(brake);
+    void brake(double amount) {
+        for (Vehicle car : cars) {
+            car.brake(amount);
         }
     }
+
+    void startAll() {
+        for (Vehicle car : cars) {
+            car.startEngine();
+        }
+    }
+
 }

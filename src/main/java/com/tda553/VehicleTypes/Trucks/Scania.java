@@ -19,7 +19,7 @@ public class Scania extends TransportVehicle
 
     @Override
     public double speedFactor() {
-        return getEnginePower() * 0.05;
+        return getEnginePower() * 0.1;
     }
 
 }

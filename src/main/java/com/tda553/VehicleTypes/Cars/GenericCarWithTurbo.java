@@ -32,6 +32,6 @@ public class GenericCarWithTurbo extends Vehicle
         double turbo = 1;
         if (turboOn)
             turbo = turboFactor;
-        return getEnginePower() * 0.01 * turbo;
+        return getEnginePower() * 0.01 * turbo * getEnginePower();
     }
 }
