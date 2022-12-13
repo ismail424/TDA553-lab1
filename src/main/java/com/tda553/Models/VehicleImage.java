@@ -1,13 +1,14 @@
-package com.tda553;
-import com.tda553.Models.Vehicle;
-import java.awt.image.BufferedImage;
+package com.tda553.Models;
+
+import com.tda553.DrawPanel;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
-public class VehicleImage {
-    private Vehicle vehicle;
+public class VehicleImage implements IVehicleImage {
+    private final Vehicle vehicle;
     private BufferedImage image;
-    
+
     public VehicleImage(Vehicle vehicle) {
         this.vehicle = vehicle;
         // Get the name of the class
@@ -20,12 +21,12 @@ public class VehicleImage {
         }
 
     }
-    
+
     public Vehicle getVehicle() {
         return this.vehicle;
     }
-    
-    public BufferedImage getImage( ) {
+
+    public BufferedImage getImage() {
         return this.image;
     }
 
@@ -36,6 +37,7 @@ public class VehicleImage {
     public int getX() {
         return this.vehicle.getPosition()[0];
     }
+
     public int getY() {
         return this.vehicle.getPosition()[1];
     }

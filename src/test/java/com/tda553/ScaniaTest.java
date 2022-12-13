@@ -23,6 +23,7 @@ public class ScaniaTest {
     @Test(expected = IllegalArgumentException.class)
     public void  PlatformAngleTest() {
         // Raise the platform
+        scania.startEngine();
         scania.raisePlatform(200);
         scania.lowerPlatform(200);
     }

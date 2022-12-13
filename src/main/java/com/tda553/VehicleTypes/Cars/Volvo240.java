@@ -1,10 +1,9 @@
 package com.tda553.VehicleTypes.Cars;
-import java.awt.Color;
 
-public class Volvo240 extends GenericCarWithTrim
-{
-    public Volvo240()
-    {
+import java.awt.*;
+
+public class Volvo240 extends GenericCarWithTrim {
+    public Volvo240() {
         setNrDoors(4);
         setColor(Color.black);
         setEnginePower(100);
