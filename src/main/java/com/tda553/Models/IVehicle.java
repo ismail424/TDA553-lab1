@@ -1,14 +1,14 @@
 package com.tda553.Models;
-import java.awt.Color;
 
-public interface IVehicle extends IMovable
-{
+import java.awt.*;
+
+public interface IVehicle extends IMovable {
     int getNrDoors();
-    
+
     double getEnginePower();
-  
+
     double getCurrentSpeed();
- 
+
     Color getColor();
 
     void setColor(Color clr);
@@ -17,7 +17,7 @@ public interface IVehicle extends IMovable
     // Behavior:
     //   If the engine is already running it should not start the engine.
     //   If the engine is not running, the method should start the engine.
-    public void startEngine() throws IllegalStateException;
+    void startEngine() throws IllegalStateException;
 
     // Contract for the stopEngine() method 
     // Input: None. & Output: None.
@@ -26,13 +26,13 @@ public interface IVehicle extends IMovable
     //   - If the car is moving it should not stop the engine.
     //   - If the engine is already stopped it should not stop the engine.
     void stopEngine() throws IllegalStateException;
-    
+
     // Contract for the gas() method
     // Input:
     //   amount: a double value  (0-1)
     // Behavior:
     //   Apply the gas to the vehicle by ammount.
-    public void gas(double amount) throws IllegalArgumentException;
+    void gas(double amount) throws IllegalArgumentException;
 
     // Input:
     //   amount : a double value (0-1)
@@ -41,5 +41,5 @@ public interface IVehicle extends IMovable
     void brake(double amount) throws IllegalArgumentException;
 
 
-    abstract double speedFactor();
+    double speedFactor();
 }

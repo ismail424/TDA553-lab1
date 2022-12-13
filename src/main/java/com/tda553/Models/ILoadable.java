@@ -1,8 +1,7 @@
 package com.tda553.Models;
 
-public interface ILoadable
-{
-    public void loadVehicle(Vehicle v);
+public interface ILoadable {
+    void loadVehicle(Vehicle v);
 
-    public Vehicle unloadVehicle(Vehicle v);
+    Vehicle unloadVehicle(Vehicle v);
 }

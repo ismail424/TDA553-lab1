@@ -1,7 +1,6 @@
 package com.tda553.Models;
 
-public interface IMovable
-{
+public interface IMovable {
     void move();
 
     void turnLeft();
